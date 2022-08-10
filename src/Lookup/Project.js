@@ -40,10 +40,15 @@ export const Project = () => {
     const [isPost, setIsPost] = useState(true);
     const [editData, setEditData] = useState("");
     const [SelectedId, setSelectedId] = useState("");
+    const [codefile, setcodefile] = useState("");
 
     // Redux Tools
     const dispatch = useDispatch()
     const project = useSelector((state) => state.project)
+
+    const handeleimage = (e) => {
+        setcodefile(e.target.files[0]);
+    };
 
     useEffect(() => {
         dispatch(GetProjectData())
@@ -55,20 +60,22 @@ export const Project = () => {
         setIsPost(true);
         handleShow()
     };
-
     //----------------- Insert Data 
     const handleprojectdata = async (values, resetForm) => {
-        await ExportApi.ProjectPost(
-            values.name,
-            values.Client,
-            values.platform,
-            values.tech,
-            values.code,
-            values.url,
-            values.sdate,
-            values.edate,
-            values.status
-        ).then(
+        let formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("ClientName", values.Client);
+        formData.append("Platformm", values.platform);
+        formData.append("Tech", values.tech)
+        formData.append("Myfile", codefile)
+        formData.append("Url", values.url)
+        formData.append("Sdate", values.sdate)
+        formData.append("Edate", values.edate)
+        formData.append("status", values.status)
+        // let formDataObj = {};
+        // formData.forEach((value, key) => (formDataObj[key] = value));
+
+        await ExportApi.ProjectPost(formData).then(
             (resp) => {
                 if (resp.ok) {
                     //let Data = resp.data;
@@ -114,6 +121,7 @@ export const Project = () => {
             }
         );
     };
+
 
 
     return (
@@ -179,7 +187,7 @@ export const Project = () => {
                                                         <td>{data.clientName}</td>
                                                         <td>{data.platformm}</td>
                                                         <td>{data.tech}</td>
-                                                        <td>{data.code}</td>
+                                                        <td><img src={data.code}/></td>
                                                         <td>{data.url}</td>
                                                         <td>{data.srtDate}</td>
                                                         <td>{data.endDate}</td>
@@ -214,7 +222,7 @@ export const Project = () => {
                             Client: isPost ? "" : editData[0].clientName,
                             platform: isPost ? "" : editData[0].platformm,
                             tech: isPost ? "" : editData[0].tech,
-                            code: isPost ? "" : editData[0].code,
+                            code: isPost ? codefile : editData[0].code,
                             url: isPost ? "" : editData[0].url,
                             sdate: isPost ? "" : editData[0].srtDate,
                             edate: isPost ? "" : editData[0].endDate,
@@ -224,7 +232,7 @@ export const Project = () => {
                         onSubmit={(values, { resetForm }) => {
                             isPost ? handleprojectdata(values, resetForm) : handleprojectdataupdate(values, resetForm);
                         }}
-                        validationSchema={validationSchema}
+                    // validationSchema={validationSchema}
 
                     >
                         {({ errors, touched, values, handleChange, handleBlur }) => (
@@ -240,9 +248,9 @@ export const Project = () => {
                                         onBlur={handleBlur}
                                         value={values.name}
                                     />
-                                    {errors.name && touched.name ? (
+                                    {/* {errors.name && touched.name ? (
                                         <div style={{ color: "red" }}>{errors.name}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="name">Client Name</label>
@@ -255,9 +263,9 @@ export const Project = () => {
                                         onBlur={handleBlur}
                                         value={values.Client}
                                     />
-                                    {errors.name && touched.Client ? (
+                                    {/* {errors.name && touched.Client ? (
                                         <div style={{ color: "red" }}>{errors.Client}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="platform"> Platform </label>
@@ -269,14 +277,14 @@ export const Project = () => {
                                         value={values.platform}
                                         onChange={handleChange}
                                     >
-                                        <option selected> Select Platform</option>
+                                        <option defaultValue=''> Select Platform</option>
                                         <option value={"Upwork"}>Upwork</option>
                                         <option value={"LinkedIn"}>LinkedIn</option>
                                         <option value={"Direct"}>Direct</option>
                                     </select>
-                                    {errors.platform && touched.platform ? (
+                                    {/* {errors.platform && touched.platform ? (
                                         <div style={{ color: "red" }}>{errors.platform}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="name">Technology</label>
@@ -289,24 +297,24 @@ export const Project = () => {
                                         onBlur={handleBlur}
                                         value={values.tech}
                                     />
-                                    {errors.tech && touched.tech ? (
+                                    {/* {errors.tech && touched.tech ? (
                                         <div style={{ color: "red" }}>{errors.tech}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="name">Code</label>
-                                    <input type="text"
-                                        className="form-control mt-2"
-                                        placeholder="e.g "
+                                <label htmlFor="formFile" className="form-label">
+                                    Code File
+                                </label>
+                                <div >
+                                    <input
+                                        className="form-control mb-2"
                                         name="code"
-                                        id="code"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.code}
+                                        type="file"
+                                        id="formFile"
+                                        onChange={(e) => {
+                                            handeleimage(e);
+                                            handleChange(e);
+                                        }}
                                     />
-                                    {errors.code && touched.code ? (
-                                        <div style={{ color: "red" }}>{errors.code}</div>
-                                    ) : null}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="name">URL</label>
@@ -319,9 +327,9 @@ export const Project = () => {
                                         onBlur={handleBlur}
                                         value={values.url}
                                     />
-                                    {errors.url && touched.url ? (
+                                    {/* {errors.url && touched.url ? (
                                         <div style={{ color: "red" }}>{errors.url}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="name">SDate</label>
@@ -334,9 +342,9 @@ export const Project = () => {
                                         onBlur={handleBlur}
                                         value={values.sdate}
                                     />
-                                    {errors.sdate && touched.sdate ? (
+                                    {/* {errors.sdate && touched.sdate ? (
                                         <div style={{ color: "red" }}>{errors.sdate}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="name">EDate</label>
@@ -349,9 +357,9 @@ export const Project = () => {
                                         onBlur={handleBlur}
                                         value={values.edate}
                                     />
-                                    {errors.edate && touched.edate ? (
+                                    {/* {errors.edate && touched.edate ? (
                                         <div style={{ color: "red" }}>{errors.edate}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="status"> Status </label>
@@ -363,13 +371,13 @@ export const Project = () => {
                                         value={values.status}
                                         onChange={handleChange}
                                     >
-                                        <option selected> Select Status</option>
+                                        <option defaultValue=''> Select Status</option>
                                         <option value={1}>Active</option>
                                         <option value={0}>InActive</option>
                                     </select>
-                                    {errors.status && touched.status ? (
+                                    {/* {errors.status && touched.status ? (
                                         <div style={{ color: "red" }}>{errors.status}</div>
-                                    ) : null}
+                                    ) : null} */}
                                 </div>
                                 <button type="submit" className="btn btn-primary mt-2" style={{ float: "right" }}>
                                     {isPost ? Constanttext.addData : Constanttext.editData}</button>

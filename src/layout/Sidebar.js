@@ -30,9 +30,15 @@ export const Sidebar = () => {
       <li className="nav-item">
       <Link className="nav-link collapsed" to="project"><i className="ri-profile-line" /> Project</Link>
       </li>
+      <li className="nav-item">
+      <Link className="nav-link collapsed" to="assignProject"><i className="ri-profile-line" /> Assign Project</Link>
+      </li>
+      <li className="nav-item">
+      <Link className="nav-link collapsed" to="dailyLog"><i className="ri-profile-line" /> Daily Logs</Link>
+      </li>
 
    {/* Department Nav */}
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <a className="nav-link collapsed" data-bs-target="#department-nav" data-bs-toggle="collapse" href='/' >
           <i className="ri-home-2-line" /><span>Departments</span><i className="bi bi-chevron-down ms-auto" />
         </a>
@@ -68,7 +74,7 @@ export const Sidebar = () => {
             </Link>
           </li>  
         </ul>
-      </li>
+      </li> */}
       <li className="nav-heading">Pages</li>
       <li className="nav-item">
         <Link className="nav-link collapsed" to="">

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useReducer } from 'react'
 import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from 'react-redux'
-import { GetDepartmentData, GetUserList,GetRoleData } from "../Redux/Action/UserAction"
+import {  GetUserList,GetRoleData, handleDepartment } from "../Redux/Action/UserAction"
 import Constanttext from '../Apis/Constanttext';
 import { Formik, Form } from 'formik';
 import ExportApi from '../Apis/ExportApi';
@@ -58,7 +58,7 @@ export const User = () => {
     };
 
     useEffect(() => {
-        dispatch(GetDepartmentData())
+        dispatch(handleDepartment())
         dispatch(GetRoleData())
     }, [])
 

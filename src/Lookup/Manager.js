@@ -122,35 +122,7 @@ export const Manager = () => {
                                             </div>
                                         </div>
                                     </h5>
-                                    {/* Table with stripped rows */}
-                                    {user.pMList && user.pMList.length > 0 ? (
-                                        <table className="table table-striped">
-                                            <thead>
-                                                <tr style={{ textAlign: "center" }}>
-                                                    <th scope="col">S.No</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Status</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {user.pMList.map((data, i) => (
-                                                    <tr key={data.id} style={{ textAlign: "center" }}>
-                                                        <th scope='row' >{i + 1}</th>
-                                                        <td>{data.name}</td>
-                                                        <td>{data.status === 1 ?
-                                                            Constanttext.active : Constanttext.InActive}</td>
-                                                        <td><i className="ri-edit-2-fill" data-bs-toggle="tooltip"
-                                                            data-bs-placement="bottom" title="Edit "
-                                                            onClick={() => editHandler(data.id)} style={{ cursor: "pointer" }} />&nbsp;
-                                                        </td>
-
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    ) : "No Data"}
-                                    {/* End Table with stripped rows */}
+                                   
                                 </div>
                             </div>
 

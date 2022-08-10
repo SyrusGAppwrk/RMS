@@ -3,7 +3,7 @@ import { BaseApi } from './BaseApi'
 // Login Post user name ,Password
 
 const LoginRMS = (username, password) =>
-  BaseApi.post(`L1/user/login`, { username: username, password: password });
+  BaseApi.post(`L1/Emp/login`, { username: username, password: password });
 
 
 //Get User Data 
@@ -34,9 +34,9 @@ const Updateuserdata = (id, department,role,name,email,exp,Skill,Cno, status) =>
 const Projectdata = () =>
     BaseApi.get(`Project`);
 
-// Post Project 
-const ProjectPost = (name, Client, platform,tech,code,url,sdate,edate, status) =>
-    BaseApi.post(`Project`, { name: name, ClientName: Client,Platformm: platform,Tech:tech,Code:code,Url:url,Sdate:sdate,Edate:edate,status: status })
+    // Post Project 
+const ProjectPost = (formData) =>
+ BaseApi.post(`Project`,formData)
 
 //Put Project
 const ProjectUpdate = (id,name, Client, platform,tech,code,url,sdate,edate, status) =>
@@ -61,6 +61,34 @@ const PutUserProject = (id, user, Project, avail, bill, PC, PM, cmnt) =>
 // user Profile 
 const GetUserProfile = (userId) =>
     BaseApi.get(`v1/GetUserProfiles/` +userId)
+
+// Assgin Project 
+const AssginProject = (d) =>
+BaseApi.get(`A1/` +d)
+
+//post UserProject Data
+const PostAssignProject = (user, Project, PC, PM, billable) =>
+    BaseApi.post(`A1`, { empid:user,projectId:Project,pcid:PC,pmid:PM,status:1,billable: billable})
+
+//Put Assign Project
+const UpdateAssignProject = (id,value) =>
+    BaseApi.put(`A1/` + id, { id: id,Status:value})
+
+// get all daily log 
+const DailyLog = (Depid ) =>
+BaseApi.get(`log/` +Depid )
+
+// get all daily log bt date range 
+const DailyLogBydate = (id,s,e ) =>
+BaseApi.get(`log/GetDailyLogByDate/`+`${id}/${s}/${e}`)
+
+//post dailylog Data
+const PostDailyLog = (id,avalibiltty,billingHour,comments) =>
+    BaseApi.post(`log/PostDailyLog`, {assignTaskId:id, avalibiltty:avalibiltty,billingHour:billingHour,comments:comments,status:1})
+
+    //Put daily log
+const Updatedailylog = (lid,id,avalibiltty,billingHour,comments) =>
+BaseApi.put(`log/` + lid, {assignTaskId:id, avalibiltty:avalibiltty,billingHour:billingHour,comments:comments})
 
 
 export default {
@@ -89,5 +117,14 @@ export default {
     PutUserProject,
     //UserProfile
     GetUserProfile,
+    // Assgin Project 
+    AssginProject,
+    UpdateAssignProject,
+    PostAssignProject,
+    //daily Log
+    DailyLog,
+    PostDailyLog,
+    DailyLogBydate,
+    Updatedailylog,
 };
 

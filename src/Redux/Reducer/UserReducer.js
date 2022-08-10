@@ -4,6 +4,8 @@ const initialState = {
     pCList:[],
     pMList:[],
     role:[],
+    assignList:[],
+    logList:[]
 }
 
 
@@ -34,6 +36,16 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 role: action.RoleList       
+            };
+            case "GetAssignedList":
+            return {
+                ...state,
+                assignList: action.AssignList       
+            };
+            case "GetDailyLoglist":
+            return {
+                ...state,
+                logList: action.LogList       
             };
 
         default: return state

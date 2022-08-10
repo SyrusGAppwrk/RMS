@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from 'react-redux'
@@ -37,6 +37,7 @@ export const Development = () => {
     // Modal Popup State 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+    
     const handleShow = () => setShow(true)
     //const [showDelete, setShowDelete] = useState(false);
     //
@@ -201,7 +202,7 @@ export const Development = () => {
                                             <tbody>
                                                 <>
                                                     {filteredData.map((data, i) => (
-                                                        data.createdDate == current ? (
+                                                        data.createdDate === current ? (
                                                             <tr key={data.id}
                                                                 style={{
                                                                     backgroundColor: data.avalibiltty === 'Yes' ?
@@ -219,11 +220,8 @@ export const Development = () => {
                                                                 <td><i className="ri-edit-2-fill" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit "
                                                                     onClick={() => editHandler(data.id)} style={{ cursor: "pointer" }} />&nbsp;
                                                                 </td>
-
                                                             </tr>
                                                         ) : ""
-
-
                                                     ))}
 
 

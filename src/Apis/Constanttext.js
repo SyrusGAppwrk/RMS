@@ -1,6 +1,6 @@
 const active="Active";
 const InActive="Not Active"
-const addData = "Add Data";
+const addData = "Assign";
 const editData = "Update";
 
 //

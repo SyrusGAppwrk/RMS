@@ -8,6 +8,7 @@ import Store from './Redux/Store/Store';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
+import 'bootstrap-daterangepicker/daterangepicker.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

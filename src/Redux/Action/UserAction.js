@@ -29,9 +29,21 @@ export const GetManager = (PMList) => ({
     PMList
 });
 
+//Assigned project user List 
+export const GetAssignemplist = (AssignList) => ({
+    type: "GetAssignedList",
+    AssignList
+});
+
+//Daily Time Log List 
+export const GetDailyLoglist = (LogList) => ({
+    type: "GetDailyLoglist",
+    LogList
+});
+
 
 // Get Department List Function
-export const GetDepartmentData = () => {
+export const  handleDepartment= () => {
     return (dispach) => {
         ExportApi.GetDepartment().then(
             (resp) => {
@@ -96,4 +108,36 @@ export const GetManagerlist = () => {
             });
     }
 }
+
+//Assigned project user List 
+export const GetAssginProjectList = (id) => {
+   
+    return (dispach) => {
+        ExportApi.AssginProject(id).then(
+            (resp) => {
+                if (resp.ok) {
+                    let Data = resp.data;
+                    dispach(GetAssignemplist(Data))
+                }
+            });
+    }
+}
+
+
+//Assigned project user List 
+export const GetDailyTimeLog = (id) => {
+   
+    return (dispach) => {
+        ExportApi.DailyLog(id).then(
+            (resp) => {
+                if (resp.ok) {
+                    let Data = resp.data;
+                    dispach(GetDailyLoglist(Data))
+                }
+            });
+    }
+}
+
+
+
 

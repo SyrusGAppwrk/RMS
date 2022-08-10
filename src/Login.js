@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BaseApi } from './Apis/BaseApi'
 import ExportApi from './Apis/ExportApi'
-import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 //import { LoginFunction } from './Redux/Action/AuthAction'
 
@@ -19,14 +18,13 @@ export default function Login() {
   // navigate('/')
   // }
 
-  const LoginFunction = (values, resetForm) => {
+  const LoginFunction = (values) => {
     ExportApi.LoginRMS(values.username, values.password)
          .then(
         (resp) => {
           if (resp.ok && resp.data.returenedToken!=null) {
              localStorage.setItem("user", resp.data.returenedToken);
             let token = localStorage.getItem("user");
-            let decoded = jwt_decode(token);
            BaseApi.setHeader("Authorization", `BEARER ${token}`);
            navigate('/')
           } else {

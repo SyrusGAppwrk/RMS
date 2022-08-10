@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function ProtectedRoute(props) {
   const { Component } = props
@@ -10,7 +10,6 @@ function ProtectedRoute(props) {
       navigate('/login')
     }
   })
-
 
   return (
     <div><Component /></div>
